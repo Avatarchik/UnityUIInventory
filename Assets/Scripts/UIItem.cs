@@ -23,4 +23,15 @@ public class UIItem : MonoBehaviour {
     {
         
     }
+
+    void SetImage(Sprite sprite)
+    {
+        itemImage.sprite = sprite;
+    }
+
+    void SetText(string name,string count)
+    {
+        itemName.text = name;
+        itemCount.text = count;
+    }
 }
