@@ -8,9 +8,10 @@ public class Necklace : Item {
     int SkillRange { get; set; }
 
     public Necklace(int id, string name, string detail, int price,
-        int count, string picture, int level, ItemType type, int skillSpeed = 0, int SkillRange = 0)
-        : base(id,name,detail,price,count,picture,level,ItemType.Weapon)
+        int count, string picture, int level, int skillSpeed = 0, int SkillRange = 0)
+        : base(id,name,detail,price,count,picture,level,ItemType.Necklace)
     {
+        this.Type = ItemType.Necklace;
         this.SkillSpeed = skillSpeed;
         this.SkillRange = SkillRange;
     }

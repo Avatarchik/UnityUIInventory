@@ -6,12 +6,10 @@ using UnityEngine.UI;
 public class UIItem : MonoBehaviour {
 
     Image itemImage;
-    Text itemName;
-    Text itemCount;
+    public Text itemName;
+    public Text itemCount;
 	void Start () {
-        itemImage = GetComponent<Image>();
-        itemName = transform.GetChild(0).GetComponent<Text>();
-        itemCount = transform.GetChild(1).GetComponent<Text>();
+        itemImage = transform.gameObject.GetComponent<Image>();
     }
 	
 	
@@ -19,19 +17,21 @@ public class UIItem : MonoBehaviour {
 		
 	}
 
-    void SetUIItemInformation()
+    public void SetImage(string path)
     {
-        
+        //Debug.Log(itemImage.);
+
+        itemImage.sprite = Resources.Load<Sprite>(path);
     }
 
-    void SetImage(Sprite sprite)
-    {
-        itemImage.sprite = sprite;
-    }
-
-    void SetText(string name,string count)
+    public void SetName(string name)
     {
         itemName.text = name;
+    }
+
+    public void SetCount(string count)
+    {
+        
         itemCount.text = count;
     }
 }

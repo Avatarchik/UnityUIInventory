@@ -32,5 +32,5 @@ public enum ItemType
     Armor,
     Ring,
     Necklace,
-    
+    Medicine,
 }
