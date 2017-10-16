@@ -8,7 +8,7 @@ public class Medicine : Item {
     int Mp { get; set; }
     public Medicine(int id, string name, string detail, int price,
         int count, string picture, int level, int hp = 0,int mp = 0)
-        : base(id,name,detail,price,count,picture,level,ItemType.Medicine)
+        : base(id,name,detail,price,picture,level,ItemType.Medicine,count)
     {
         this.Type = ItemType.Medicine;
         this.Hp = hp;

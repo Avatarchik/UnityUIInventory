@@ -8,7 +8,7 @@ public class Weapon : Item {
 
     public Weapon(int id, string name, string detail, int price,
         int count, string picture, int level,int damage)
-        : base(id,name,detail,price,count,picture,level,ItemType.Weapon)
+        : base(id,name,detail,price,picture,level,ItemType.Weapon,count)
     {
         this.Type = ItemType.Weapon;
         this.Damage = damage;

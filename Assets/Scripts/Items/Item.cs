@@ -13,7 +13,7 @@
     public ItemType Type { get; set; }
 
     public Item(int id, string name, string detail, int price, 
-        int count, string picture,int level,ItemType type)
+         string picture,int level,ItemType type,int count=1)
     {
         this.Id = id;
         this.Name = name;

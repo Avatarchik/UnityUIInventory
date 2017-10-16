@@ -30,6 +30,7 @@ public class InventoryManager : MonoBehaviour {
             newItem.GetComponent<UIItem>().SetImage(item.Picture);
         }
         GameObject go = GameObject.Instantiate(newItem, parent);
+        ItemData.SaveData(parent, item);
     }
 
     public void StoreItem(int ID)
@@ -44,9 +45,26 @@ public class InventoryManager : MonoBehaviour {
         else
         {
             Item temp = ItemDictionary[ID];
-            Debug.Log(temp.Name);
-            CreateItem(temp, parent);
-            
+            if (temp.Count == 1)
+            {
+                CreateItem(temp, parent);
+            }
+            else
+            {
+                Item item = ItemData.GetItem(parent);
+                GameObject newItem = Resources.Load("grid") as GameObject;
+                if (item != null)
+                {
+                    if (GridPanel.instance.GetExistItem(parent))
+                    {
+                        GameObject go = parent.gameObject;
+                        go.GetComponent<UIItem>().SetCount(item.Count.ToString());
+                    }
+
+                }
+                Debug.Log(item.Name+"aaa"+ item.Count);
+                ItemData.SaveData(parent, item);
+            }
         }
     }
 
@@ -54,11 +72,11 @@ public class InventoryManager : MonoBehaviour {
     {
         ItemDictionary = new Dictionary<int, Item>();
         Weapon weapon1 = new Weapon(0, "武器1", "武器1武器1武器1武器1武器1", 200
-            , 5, "ItemPicture/weapon1", 1, 20);
-        Weapon weapon2 = new Weapon(1, "武器2", "武器1武器1武器1武器1武器1", 200
-            , 6, "ItemPicture/weapon2", 1, 20);
-        Weapon weapon3 = new Weapon(2, "武器3", "武器1武器1武器1武器1武器1", 200
-            , 7, "ItemPicture/weapon3", 1, 20);
+            , 1, "ItemPicture/weapon1", 1, 20);
+        Weapon weapon2 = new Weapon(1, "武器2", "武器2武器2武器2武器2武器2", 200
+            , 1, "ItemPicture/weapon2", 1, 20);
+        Weapon weapon3 = new Weapon(2, "武器3", "武器3武器3武器3武器3武器3", 200
+            , 1, "ItemPicture/weapon3", 1, 20);
         ItemDictionary.Add(weapon1.Id, weapon1);
         ItemDictionary.Add(weapon2.Id, weapon2);
         ItemDictionary.Add(weapon3.Id, weapon3);

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridPanel : MonoBehaviour {
+public class GridPanel : MonoBehaviour
+{
 
     public Transform[] Grids;
 
@@ -17,7 +18,7 @@ public class GridPanel : MonoBehaviour {
     }
     public Transform GetEmptyGrid()
     {
-        for(int i = 0; i < Grids.Length; i++)
+        for (int i = 0; i < Grids.Length; i++)
         {
             if (Grids[i].childCount == 0)
             {
@@ -25,5 +26,17 @@ public class GridPanel : MonoBehaviour {
             }
         }
         return null;
+    }
+
+    public bool GetExistItem(Transform transform)
+    {
+        for (int i = 0; i < Grids.Length; i++)
+        {
+            if (Grids[i]==transform)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
