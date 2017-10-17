@@ -57,7 +57,6 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Item temp = ItemDictionary[ID];
-            Debug.Log(temp.Name);
             if (temp != null)
             {
                 if (ItemData.ContainItem(temp.Name))
@@ -144,7 +143,6 @@ public class InventoryManager : MonoBehaviour
         DragUI.SetActive(false);
         string name = lastTransform.GetChild(0).GetChild(1).GetComponent<Text>().text;
         Item item = ItemData.GetItem(name);
-        Debug.Log(item.Count);
         if (item.Count == 1)
         {
             Destroy(GridPanel.instance.GetExistItem(name).GetChild(0).gameObject);
@@ -155,7 +153,6 @@ public class InventoryManager : MonoBehaviour
             ItemData.DeleteItem(name, item);
             GridPanel.instance.GetExistItem(item.Name).GetChild(0).GetChild(2).
                 GetComponent<Text>().text = ItemData.GetItem(name).Count.ToString();
-            Debug.Log(ItemData.GetItem(name).Count);
         }
         
     }
