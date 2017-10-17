@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Necklace : Item {
 
-    int SkillSpeed { get; set; }
-    int SkillRange { get; set; }
+    public int SkillSpeed { get; set; }
+    public int SkillRange { get; set; }
 
     public Necklace(int id, string name, string detail, int price,
         int count, string picture, int level, int skillSpeed = 0, int SkillRange = 0)

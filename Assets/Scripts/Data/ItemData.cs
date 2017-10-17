@@ -35,4 +35,14 @@ public class ItemData
     {
         return itemDictionary.ContainsValue(item);
     }
+
+    public static Item GetItemFromName(string name)
+    {
+        for(int i = 0; i < itemDictionary.Count; i++)
+        {
+            if (itemDictionary[i].Name == name)
+                return itemDictionary[i];
+        }
+        return null;
+    }
 }

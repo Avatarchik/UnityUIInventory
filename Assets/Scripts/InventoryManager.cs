@@ -2,25 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class InventoryManager : MonoBehaviour {
+public class InventoryManager : MonoBehaviour
+{
     public static InventoryManager instance = null;
     public Dictionary<int, Item> ItemDictionary;
+    public GameObject Tips;
     private void Awake()
     {
         if (instance != null)
             Destroy(gameObject);
         else
             instance = this;
+        UIMove.OnEnter += UIMoveOnEnter;
+        UIMove.OnExit += UIMoveOnExit;
     }
-    void Start () {
+    void Start()
+    {
         LoadData();
-	}
-	
-	void Update () {
-		
-	}
+        UITips.instance.HideTips();
+    }
 
-    void CreateItem(Item item,Transform parent)
+    void Update()
+    {
+
+    }
+
+    void CreateItem(Item item, Transform parent)
     {
         GameObject newItem = Resources.Load("grid") as GameObject;
         if (newItem.GetComponent<UIItem>() != null)
@@ -70,5 +77,23 @@ public class InventoryManager : MonoBehaviour {
         ItemDictionary.Add(weapon1.Id, weapon1);
         ItemDictionary.Add(weapon2.Id, weapon2);
         ItemDictionary.Add(weapon3.Id, weapon3);
+    }
+
+    void UIMoveOnEnter(Transform transform)
+    {
+        string name = GridPanel.instance.GetItemFromTransform(transform);
+        Debug.Log(name);
+        if (name != null)
+        {
+            //string content = UITips.instance.GetStringText(ItemData.GetItemFromName(name));
+            UITips.instance.UpdateText(name);
+            UITips.instance.ShowTips();
+        }
+    }
+
+    void UIMoveOnExit()
+    {
+        if (UITips.instance.gameObject.activeSelf)
+            UITips.instance.HideTips();
     }
 }

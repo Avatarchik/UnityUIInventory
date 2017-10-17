@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : Item {
 
-    int Damage { get; set; }
+    public int Damage { get; set; }
 
     public Weapon(int id, string name, string detail, int price,
         int count, string picture, int level,int damage)

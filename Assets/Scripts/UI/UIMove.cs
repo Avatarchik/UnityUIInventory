@@ -42,12 +42,12 @@ public class UIMove : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
-    // Use this for initialization
+
     void Start () {
 		
 	}
 	
-	// Update is called once per frame
+
 	void Update () {
 		
 	}
