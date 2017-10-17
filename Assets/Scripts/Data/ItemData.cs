@@ -5,44 +5,35 @@ using UnityEngine;
 public class ItemData
 {
 
-    static Dictionary<int, Item> itemDictionary = new Dictionary<int, Item>();
+    static Dictionary<string, Item> itemDictionary = new Dictionary<string, Item>();
 
-    public static void SaveData(int id,Item item)
+    public static void SaveData(string name,Item item)
     {
-        if (itemDictionary.ContainsKey(id))
+        if (itemDictionary.ContainsKey(name))
             item.Count++;
         else
-            itemDictionary.Add(id, item);
+            itemDictionary.Add(name, item);
     }
 
-    public static Item GetItem(int id)
+    public static Item GetItem(string name)
     {
-        if (itemDictionary.ContainsKey(id))
-            return itemDictionary[id];
+        if (itemDictionary.ContainsKey(name))
+            return itemDictionary[name];
         else
             return null;
     }
 
-    public static void DeleteItem(int id)
+    public static void DeleteItem(string name)
     {
-        if (itemDictionary.ContainsKey(id))
+        if (itemDictionary.ContainsKey(name))
         {
-            itemDictionary.Remove(id);
+            itemDictionary.Remove(name);
         }
     }
 
-    public static bool ContainItem(Item item)
+    public static bool ContainItem(string name)
     {
-        return itemDictionary.ContainsValue(item);
+        return itemDictionary.ContainsKey(name);
     }
-
-    public static Item GetItemFromName(string name)
-    {
-        for(int i = 0; i < itemDictionary.Count; i++)
-        {
-            if (itemDictionary[i].Name == name)
-                return itemDictionary[i];
-        }
-        return null;
-    }
+    
 }

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class GridPanel : MonoBehaviour
 {
-
     public Transform[] Grids;
 
     public static GridPanel instance = null;

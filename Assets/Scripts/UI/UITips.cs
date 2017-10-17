@@ -27,44 +27,45 @@ public class UITips : MonoBehaviour {
     {
         gameObject.SetActive(false);
     }
-    
+
+    public void SetLocalPosition(Vector2 position)
+    {
+        transform.localPosition = position;
+    }
+
     public string GetStringText(Item item)
     {
         if (item == null)
             return null;
         StringBuilder content = new StringBuilder();
-        content.AppendFormat("<color=red>{0}</color>\n\n", item.Name);
+        content.AppendFormat("<size=25><b>{0}</b></size>\n\n", item.Name);
+        content.AppendFormat("等级：{0}\n", item.Level);
         switch (item.Type)
         {
             case ItemType.Armor:
                 Armor armor = item as Armor;
-                content.AppendFormat("名称:{0}\n等级:{1}\n防御:{2}\n详情:{3}\n\n", 
-                    armor.Name, armor.Level, armor.Defense,armor.Detail);
+                content.AppendFormat("防御：{0}\n",armor.Defense);
                 break;
             case ItemType.Medicine:
                 Medicine medicine = item as Medicine;
-                content.AppendFormat("名称:{0}\n等级:{1}\nHp:{2}\nMp:{3}\n详情:{4}\n\n",
-                    medicine.Name, medicine.Level, medicine.Hp, medicine.Mp, medicine.Detail);
+                content.AppendFormat("Hp:{0}\nMp:{1}\n",medicine.Hp, medicine.Mp);
                 break;
             case ItemType.Necklace:
                 Necklace necklace = item as Necklace;
-                content.AppendFormat("名称:{0}\n等级:{1}\n攻击范围+:{2}\n攻击速度+:{3}\n详情:{4}\n\n",
-                    necklace.Name, necklace.Level, necklace.SkillRange, necklace.SkillSpeed, necklace.Detail);
+                content.AppendFormat("攻击范围+:{0}\n攻击速度+:{1}\n",necklace.SkillRange,necklace.SkillSpeed);
                 break;
             case ItemType.Ring:
                 Ring ring = item as Ring;
-                content.AppendFormat("名称:{0}\n等级:{1}\n抗疲劳+:{2}\n抗毒+:{3}\n详情:{4}\n\n",
-                    ring.Name, ring.Level, ring.DefendWeak, ring.DefendPoison, ring.Detail);
+                content.AppendFormat("抗疲劳+:{0}\n抗毒+:{1}\n", ring.DefendWeak, ring.DefendPoison);
                 break;
             case ItemType.Weapon:
                 Weapon weapon = item as Weapon;
-                content.AppendFormat("名称:{0}\n等级:{1}\n伤害+:{2}\n抗毒+:{3}\n详情:{4}\n\n",
-                    weapon.Name, weapon.Level, weapon.Damage, weapon.Detail);
+                content.AppendFormat("攻击+：{0}\n",weapon.Damage);
                 break;
             default:
                 break;
         }
-        //content.AppendFormat("<size=25><color=white>购买价格：{0}\n出售价格：{1}</color></size>\n\n<color=yellow><size=20>描述：{2}</size></color>", item.BuyPrice, item.SellPrice, item.Description);
+        content.AppendFormat("购买价格：{0}\n\n详情：{1}\n", item.Price, item.Detail);
         return content.ToString();
     }
 }

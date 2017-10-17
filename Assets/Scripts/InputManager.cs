@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            int index = Random.Range(0, 2);
+            int index = Random.Range(0, 9);
             InventoryManager.instance.StoreItem(index);
         }
     }
