@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GridPanel : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class GridPanel : MonoBehaviour
     public Transform[] Grids;
 
     public static GridPanel instance = null;
+
+    int emptyIndex = 0;
 
     private void Awake()
     {
@@ -22,21 +25,25 @@ public class GridPanel : MonoBehaviour
         {
             if (Grids[i].childCount == 0)
             {
+                emptyIndex = i;
                 return Grids[i];
             }
         }
         return null;
     }
 
-    public bool GetExistItem(Transform transform)
+    public Transform GetExistItem(string name)
     {
-        for (int i = 0; i < Grids.Length; i++)
+        for (int i = 0; i < emptyIndex; i++)
         {
-            if (Grids[i]==transform)
+            if (Grids[i].childCount != 0)
             {
-                return true;
+                if (Grids[i].GetChild(0).GetChild(1).GetComponent<Text>().text == name)
+                {
+                    return Grids[i];
+                }
             }
         }
-        return false;
+        return null;
     }
 }

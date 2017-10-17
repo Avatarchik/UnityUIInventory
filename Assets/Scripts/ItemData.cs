@@ -5,9 +5,9 @@ using UnityEngine;
 public class ItemData
 {
 
-    static Dictionary<Transform, Item> itemDictionary = new Dictionary<Transform, Item>();
+    static Dictionary<int, Item> itemDictionary = new Dictionary<int, Item>();
 
-    public static void SaveData(Transform id,Item item)
+    public static void SaveData(int id,Item item)
     {
         if (itemDictionary.ContainsKey(id))
             item.Count++;
@@ -15,7 +15,7 @@ public class ItemData
             itemDictionary.Add(id, item);
     }
 
-    public static Item GetItem(Transform id)
+    public static Item GetItem(int id)
     {
         if (itemDictionary.ContainsKey(id))
             return itemDictionary[id];
@@ -23,11 +23,16 @@ public class ItemData
             return null;
     }
 
-    public static void DeleteItem(Transform id)
+    public static void DeleteItem(int id)
     {
         if (itemDictionary.ContainsKey(id))
         {
             itemDictionary.Remove(id);
         }
+    }
+
+    public static bool ContainItem(Item item)
+    {
+        return itemDictionary.ContainsValue(item);
     }
 }

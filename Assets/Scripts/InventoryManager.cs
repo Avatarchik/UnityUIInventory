@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour {
     public static InventoryManager instance = null;
     public Dictionary<int, Item> ItemDictionary;
@@ -29,8 +29,8 @@ public class InventoryManager : MonoBehaviour {
             newItem.GetComponent<UIItem>().SetCount(item.Count.ToString());
             newItem.GetComponent<UIItem>().SetImage(item.Picture);
         }
-        GameObject go = GameObject.Instantiate(newItem, parent);
-        ItemData.SaveData(parent, item);
+        GameObject.Instantiate(newItem, parent);
+        ItemData.SaveData(item.Id, item);
     }
 
     public void StoreItem(int ID)
@@ -45,25 +45,15 @@ public class InventoryManager : MonoBehaviour {
         else
         {
             Item temp = ItemDictionary[ID];
-            if (temp.Count == 1)
+            if (temp != null)
             {
-                CreateItem(temp, parent);
-            }
-            else
-            {
-                Item item = ItemData.GetItem(parent);
-                GameObject newItem = Resources.Load("grid") as GameObject;
-                if (item != null)
+                if (ItemData.ContainItem(temp))
                 {
-                    if (GridPanel.instance.GetExistItem(parent))
-                    {
-                        GameObject go = parent.gameObject;
-                        go.GetComponent<UIItem>().SetCount(item.Count.ToString());
-                    }
-
+                    GridPanel.instance.GetExistItem(temp.Name).GetChild(0).GetChild(2).GetComponent<Text>().text = temp.Count.ToString();
+                    ItemData.SaveData(ID, temp);
                 }
-                Debug.Log(item.Name+"aaa"+ item.Count);
-                ItemData.SaveData(parent, item);
+                else
+                    CreateItem(temp, parent);
             }
         }
     }
