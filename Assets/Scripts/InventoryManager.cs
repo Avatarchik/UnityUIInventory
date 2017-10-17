@@ -6,6 +6,8 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance = null;
     public Dictionary<int, Item> ItemDictionary;
+    public GameObject DragUI;
+    bool isDrag;
     private void Awake()
     {
         if (instance != null)
@@ -14,6 +16,8 @@ public class InventoryManager : MonoBehaviour
             instance = this;
         UIMove.OnEnter += UIMoveOnEnter;
         UIMove.OnExit += UIMoveOnExit;
+        UIMove.OnDraging += UIMoveOnDraging;
+        UIMove.EndDrag += UIMoveOnEndDrag;
     }
     void Start()
     {
@@ -23,7 +27,12 @@ public class InventoryManager : MonoBehaviour
 
     void Update()
     {
-
+        if(isDrag)
+        {
+            Vector2 position;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(GameObject.Find("Canvas").transform as RectTransform, Input.mousePosition, null, out position);
+            DragUI.transform.localPosition = position;
+        }
     }
 
     void CreateItem(Item item, Transform parent)
@@ -36,6 +45,7 @@ public class InventoryManager : MonoBehaviour
             newItem.GetComponent<UIItem>().SetImage(item.Picture);
         }
         GameObject.Instantiate(newItem, parent);
+        //Debug.Log(item.Name +"aaaa"+ item.Count);
         ItemData.SaveData(item.Name, item);
     }
 
@@ -47,10 +57,12 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Item temp = ItemDictionary[ID];
+            Debug.Log(temp.Name);
             if (temp != null)
             {
                 if (ItemData.ContainItem(temp.Name))
                 {
+                    ItemData.AddItem(temp.Name);
                     GridPanel.instance.GetExistItem(temp.Name).GetChild(0).GetChild(2).GetComponent<Text>().text = temp.Count.ToString();
                     ItemData.SaveData(temp.Name, temp);
                 }
@@ -114,5 +126,37 @@ public class InventoryManager : MonoBehaviour
     {
         if (UITips.instance.gameObject.activeSelf)
             UITips.instance.HideTips();
+    }
+
+    void UIMoveOnDraging(Transform gridTransform)
+    {
+        isDrag = true;
+        if (gridTransform.childCount == 0)
+            return;
+        Item item = ItemData.GetItem(gridTransform.GetChild(0).GetChild(1).GetComponent<Text>().text);
+        DragUI.GetComponent<Image>().sprite = Resources.Load<Sprite>(item.Picture);
+        DragUI.SetActive(true);
+    }
+
+    void UIMoveOnEndDrag(Transform lastTransform,Transform nextTransform)
+    {
+        isDrag = false;
+        DragUI.SetActive(false);
+        string name = lastTransform.GetChild(0).GetChild(1).GetComponent<Text>().text;
+        Item item = ItemData.GetItem(name);
+        Debug.Log(item.Count);
+        if (item.Count == 1)
+        {
+            Destroy(GridPanel.instance.GetExistItem(name).GetChild(0).gameObject);
+            return;
+        }
+        if (nextTransform == DragUI.transform)
+        {
+            ItemData.DeleteItem(name, item);
+            GridPanel.instance.GetExistItem(item.Name).GetChild(0).GetChild(2).
+                GetComponent<Text>().text = ItemData.GetItem(name).Count.ToString();
+            Debug.Log(ItemData.GetItem(name).Count);
+        }
+        
     }
 }

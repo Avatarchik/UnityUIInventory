@@ -9,8 +9,10 @@ public class ItemData
 
     public static void SaveData(string name,Item item)
     {
-        if (itemDictionary.ContainsKey(name))
-            item.Count++;
+        if (itemDictionary.ContainsKey(name)) {
+            itemDictionary[name].Count = item.Count;
+        }
+            
         else
             itemDictionary.Add(name, item);
     }
@@ -23,17 +25,33 @@ public class ItemData
             return null;
     }
 
-    public static void DeleteItem(string name)
+    public static void DeleteItem(string name,Item item)
     {
         if (itemDictionary.ContainsKey(name))
         {
-            itemDictionary.Remove(name);
+            item.Count --;
+            if (item.Count == 0)
+            {
+                itemDictionary.Remove(name);
+                return;
+            }
+            SaveData(name, item);
         }
+        else
+            return;
     }
 
     public static bool ContainItem(string name)
     {
         return itemDictionary.ContainsKey(name);
+    }
+
+    public static void AddItem(string name)
+    {
+        if (itemDictionary.ContainsKey(name))
+            itemDictionary[name].Count++;
+        else
+            return;
     }
     
 }

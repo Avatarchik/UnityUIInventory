@@ -8,22 +8,7 @@ public class UIMove : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public static Action<Transform> OnEnter;
     public static Action OnExit;
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        throw new System.NotImplementedException();
-    }
-
+    
     public void OnPointerExit(PointerEventData eventData)
     {
         if (eventData.pointerEnter.tag == "Grid")
@@ -42,13 +27,34 @@ public class UIMove : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    public static Action<Transform> OnDraging;
+    public static Action<Transform,Transform> EndDrag;
 
-    void Start () {
-		
-	}
-	
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (OnDraging != null)
+                OnDraging(transform);
+        }
+    }
 
-	void Update () {
-		
-	}
+    public void OnDrag(PointerEventData eventData)
+    {
+        //Debug.Log("draging!");
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (EndDrag != null)
+            {
+                if (eventData.pointerEnter == null)
+                    EndDrag(transform, null);
+                else
+                    EndDrag(transform, eventData.pointerEnter.transform);
+            }
+        }
+    }
 }
