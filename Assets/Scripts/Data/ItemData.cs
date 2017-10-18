@@ -32,11 +32,10 @@ public class ItemData
             item.Count --;
             if (item.Count == 0)
             {
-                Debug.Log("aaaa");
                 itemDictionary.Remove(name);
                 return;
             }
-            SaveData(name, item);Debug.Log(itemDictionary.Count);
+            SaveData(name, item);
         }
         
         else

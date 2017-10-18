@@ -38,6 +38,8 @@ public class InventoryManager : MonoBehaviour
     void CreateItem(Item item, Transform parent)
     {
         GameObject newItem = Resources.Load("grid") as GameObject;
+        if (item.Count != 1)
+            item.Count = 1;
         if (newItem.GetComponent<UIItem>() != null)
         {
             newItem.GetComponent<UIItem>().SetName(item.Name);
@@ -145,6 +147,7 @@ public class InventoryManager : MonoBehaviour
         Item item = ItemData.GetItem(name);
         if (item.Count == 1)
         {
+            ItemData.DeleteItem(name, item);
             Destroy(GridPanel.instance.GetExistItem(name).GetChild(0).gameObject);
             return;
         }

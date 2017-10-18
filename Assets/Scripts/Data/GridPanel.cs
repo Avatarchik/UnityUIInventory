@@ -6,10 +6,9 @@ using UnityEngine.UI;
 public class GridPanel : MonoBehaviour
 {
     public Transform[] Grids;
+    public Dictionary<Transform, GameObject> dictionary = new Dictionary<Transform, GameObject>();
 
     public static GridPanel instance = null;
-
-    int emptyIndex = 0;
 
     private void Awake()
     {
@@ -18,40 +17,65 @@ public class GridPanel : MonoBehaviour
         else
             instance = this;
     }
+
+    private void Start()
+    {
+        foreach(Transform trans in Grids)
+        {
+            dictionary.Add(trans, trans.gameObject);
+        }
+    }
     public Transform GetEmptyGrid()
     {
-        for (int i = 0; i < Grids.Length; i++)
+        foreach (Transform trans in Grids)
         {
-            if (Grids[i].childCount == 0)
-            {
-                emptyIndex = i;
-                return Grids[i];
-            }
+            if (trans.childCount == 0)
+                return trans;
         }
         return null;
     }
 
     public Transform GetExistItem(string name)
     {
-        for (int i = 0; i <= emptyIndex; i++)
+        foreach (Transform trans in Grids)
+        {
+            if (trans.childCount != 0)
+            {
+                if (trans.GetChild(0).GetChild(1).GetComponent<Text>().text == name)
+                {
+                    return trans;
+                }
+            }
+        }
+        /*for (int i = 0; i <= emptyIndex; i++)
         {
             if (Grids[i].GetChild(0).GetChild(1).GetComponent<Text>().text == name)
             {
                 return Grids[i];
             }
-        }
+        }*/
         return null;
     }
 
     public string GetItemFromTransform(Transform transform)
     {
-        for (int i = 0; i <= emptyIndex; i++)
+        /*for (int i = 0; i <= emptyIndex; i++)
         {
             if (Grids[i] == transform&&Grids[i].childCount!=0)
             {
                 return Grids[i].GetChild(0).GetChild(1).GetComponent<Text>().text;
             }
 
+        }*/
+        foreach (Transform trans in Grids)
+        {
+            if (trans.childCount != 0)
+            {
+                if (trans==transform)
+                {
+                    return trans.GetChild(0).GetChild(1).GetComponent<Text>().text;
+                }
+            }
         }
         return null;
     }
