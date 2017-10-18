@@ -124,7 +124,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5927\u8840\u74F6"
+  m_Text: "\u5C0F\u84DD\u74F6"
 --- !u!114 &114433369560295544
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -177,7 +177,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 3792b04a03d154c4499c4069d0f81a55, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c90d3c2c448c66742a623c883681c787, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

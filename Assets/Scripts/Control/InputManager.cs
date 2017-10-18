@@ -14,5 +14,10 @@ public class InputManager : MonoBehaviour {
             int index = Random.Range(0, 9);
             InventoryManager.instance.StoreItem(index);
         }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            GridPanel.instance.ArragngeItem();
+        }
     }
 }

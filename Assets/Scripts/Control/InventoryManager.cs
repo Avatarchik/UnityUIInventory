@@ -47,7 +47,6 @@ public class InventoryManager : MonoBehaviour
             newItem.GetComponent<UIItem>().SetImage(item.Picture);
         }
         GameObject.Instantiate(newItem, parent);
-        //Debug.Log(item.Name +"aaaa"+ item.Count);
         ItemData.SaveData(item.Name, item);
     }
 
@@ -193,6 +192,5 @@ public class InventoryManager : MonoBehaviour
                 ResetAmonutsItem(enterGirdItem, lastTransform.GetChild(0).gameObject);
             }
         }
-
     }
 }

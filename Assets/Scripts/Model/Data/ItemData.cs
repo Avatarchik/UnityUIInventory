@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemData
 {
 
-    static Dictionary<string, Item> itemDictionary = new Dictionary<string, Item>();
+    public static Dictionary<string, Item> itemDictionary = new Dictionary<string, Item>();
 
     public static void SaveData(string name,Item item)
     {

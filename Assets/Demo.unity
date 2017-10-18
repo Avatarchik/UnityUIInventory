@@ -1180,8 +1180,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.6, y: 441.2}
-  m_SizeDelta: {x: 743.3, y: 123.5}
+  m_AnchoredPosition: {x: 492, y: 361}
+  m_SizeDelta: {x: 845.8, y: 264.48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1610872633
 MonoBehaviour:
@@ -1209,13 +1209,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 100
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7A7A\u683C\u952E\uFF1A\u968F\u673A\u4EA7\u751F\u7269\u54C1"
+  m_Text: "\u7A7A\u683C\u952E\uFF1A\u968F\u673A\u4EA7\u751F\u7269\u54C1\nA\u952E\uFF1A\u6574\u7406\u80CC\u5305\n\u7269\u54C1\u62D6\u62FD\u5230\u7070\u8272\u80CC\u666F\u5904\u5220\u9664\u7269\u54C1\uFF0C\u62D6\u52A8\u5230\u683C\u5B50\u5904\u4EA4\u6362\uFF0C\u5176\u4F59\u4E0D\u53D8"
 --- !u!222 &1610872634
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1396,7 +1396,7 @@ GameObject:
   - component: {fileID: 1937110010}
   m_Layer: 5
   m_Name: GridPanel
-  m_TagString: Grid
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1423,10 +1423,10 @@ RectTransform:
   m_Father: {fileID: 2078145088}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -487.10007, y: 72.7}
-  m_SizeDelta: {x: 590.1, y: 545.8}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 683, y: 405}
+  m_SizeDelta: {x: 591.6, y: 571.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1937110007
 MonoBehaviour:
@@ -1505,6 +1505,7 @@ MonoBehaviour:
   - {fileID: 17101433}
   - {fileID: 396302693}
   - {fileID: 2005839471}
+  emptyGrids: 
 --- !u!1 &2005839470
 GameObject:
   m_ObjectHideFlags: 0
