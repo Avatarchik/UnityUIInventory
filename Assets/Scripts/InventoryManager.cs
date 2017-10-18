@@ -27,7 +27,7 @@ public class InventoryManager : MonoBehaviour
 
     void Update()
     {
-        if(isDrag)
+        if (isDrag)
         {
             Vector2 position;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(GameObject.Find("Canvas").transform as RectTransform, Input.mousePosition, null, out position);
@@ -49,6 +49,18 @@ public class InventoryManager : MonoBehaviour
         GameObject.Instantiate(newItem, parent);
         //Debug.Log(item.Name +"aaaa"+ item.Count);
         ItemData.SaveData(item.Name, item);
+    }
+
+    void ResetOneItem(Item item, Transform parent)
+    {
+        GameObject newItem = Resources.Load("grid") as GameObject;
+        if (newItem.GetComponent<UIItem>() != null)
+        {
+            newItem.GetComponent<UIItem>().SetName(item.Name);
+            newItem.GetComponent<UIItem>().SetCount(item.Count.ToString());
+            newItem.GetComponent<UIItem>().SetImage(item.Picture);
+        }
+        GameObject.Instantiate(newItem, parent);
     }
 
     public void StoreItem(int ID)
@@ -135,28 +147,48 @@ public class InventoryManager : MonoBehaviour
         if (gridTransform.childCount == 0)
             return;
         Item item = ItemData.GetItem(gridTransform.GetChild(0).GetChild(1).GetComponent<Text>().text);
-        DragUI.GetComponent<Image>().sprite = Resources.Load<Sprite>(item.Picture);
         DragUI.SetActive(true);
+        DragUI.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(item.Picture);
+
     }
 
-    void UIMoveOnEndDrag(Transform lastTransform,Transform nextTransform)
+    void UIMoveOnEndDrag(Transform lastTransform, Transform nextTransform)
     {
+
         isDrag = false;
         DragUI.SetActive(false);
         string name = lastTransform.GetChild(0).GetChild(1).GetComponent<Text>().text;
         Item item = ItemData.GetItem(name);
-        if (item.Count == 1)
+        if (nextTransform == null)
         {
             ItemData.DeleteItem(name, item);
-            Destroy(GridPanel.instance.GetExistItem(name).GetChild(0).gameObject);
-            return;
-        }
-        if (nextTransform == DragUI.transform)
-        {
-            ItemData.DeleteItem(name, item);
-            GridPanel.instance.GetExistItem(item.Name).GetChild(0).GetChild(2).
+            if (item.Count == 0)
+                Destroy(GridPanel.instance.GetExistItem(name).GetChild(0).gameObject);
+            else
+                GridPanel.instance.GetExistItem(item.Name).GetChild(0).GetChild(2).
                 GetComponent<Text>().text = ItemData.GetItem(name).Count.ToString();
         }
-        
+        else if (nextTransform.tag == "Grid")
+        {
+            Debug.Log(nextTransform.childCount);
+            if (nextTransform.childCount == 0)
+            {
+                ResetOneItem(item, nextTransform);
+                Destroy(lastTransform.GetChild(0).gameObject);
+            }
+            else
+            {
+                Destroy(nextTransform.gameObject);
+                Destroy(lastTransform.gameObject);
+                //获取数据
+                Item prevGirdItem = ItemData.GetItem(name);
+                string nextName = nextTransform.GetChild(0).GetChild(1).GetComponent<Text>().text;
+                Item enterGirdItem = ItemData.GetItem(nextName);
+                //交换的两个物体
+                CreateItem(prevGirdItem, nextTransform);
+                CreateItem(enterGirdItem, lastTransform);
+            }
+        }
+
     }
 }
