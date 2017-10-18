@@ -63,6 +63,16 @@ public class InventoryManager : MonoBehaviour
         GameObject.Instantiate(newItem, parent);
     }
 
+    void ResetAmonutsItem(Item item, GameObject newItem)
+    {
+        if (newItem.GetComponent<UIItem>() != null)
+        {
+            newItem.GetComponent<UIItem>().SetName(item.Name);
+            newItem.GetComponent<UIItem>().SetCount(item.Count.ToString());
+            newItem.GetComponent<UIItem>().SetImage(item.Picture);
+        }
+    }
+
     public void StoreItem(int ID)
     {
         if (!ItemDictionary.ContainsKey(ID))
@@ -154,7 +164,6 @@ public class InventoryManager : MonoBehaviour
 
     void UIMoveOnEndDrag(Transform lastTransform, Transform nextTransform)
     {
-
         isDrag = false;
         DragUI.SetActive(false);
         string name = lastTransform.GetChild(0).GetChild(1).GetComponent<Text>().text;
@@ -170,23 +179,18 @@ public class InventoryManager : MonoBehaviour
         }
         else if (nextTransform.tag == "Grid")
         {
-            Debug.Log(nextTransform.childCount);
-            if (nextTransform.childCount == 0)
+            if (nextTransform.gameObject.name != "background")
             {
                 ResetOneItem(item, nextTransform);
                 Destroy(lastTransform.GetChild(0).gameObject);
             }
             else
             {
-                Destroy(nextTransform.gameObject);
-                Destroy(lastTransform.gameObject);
-                //获取数据
                 Item prevGirdItem = ItemData.GetItem(name);
-                string nextName = nextTransform.GetChild(0).GetChild(1).GetComponent<Text>().text;
+                string nextName = nextTransform.parent.GetChild(1).GetComponent<Text>().text;
                 Item enterGirdItem = ItemData.GetItem(nextName);
-                //交换的两个物体
-                CreateItem(prevGirdItem, nextTransform);
-                CreateItem(enterGirdItem, lastTransform);
+                ResetAmonutsItem(prevGirdItem, nextTransform.parent.gameObject);
+                ResetAmonutsItem(enterGirdItem, lastTransform.GetChild(0).gameObject);
             }
         }
 
