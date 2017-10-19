@@ -106,6 +106,7 @@ public class InventoryManager : MonoBehaviour
 
     void LoadData()
     {
+        ///暂时暴力存放数据
         ItemDictionary = new Dictionary<int, Item>();
         Weapon weapon1 = new Weapon(0, "武器1", "武器1武器1武器1武器1武器1", 100
             , 1, "ItemPicture/weapon1", 1, 20);
